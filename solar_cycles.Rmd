@@ -16,12 +16,23 @@ kanzel <- data.table::fread("./kh_spots.csv")
 kanzel$Ymd <- as.Date(kanzel$Ymd)
 kanzel$Year <- year(kanzel$Ymd)
 kanzel$Month <- month(kanzel$Ymd)
-kanzel$Spots <- kanzel$n_s + kanzel$s_s
+kanzel$Spots <- kanzel$s_n + kanzel$s_s
 K1 <- kanzel %>% select(Ymd,Year,Month,R,Spots)
 radio <- data.table::fread("./radio_flux.txt")
 radio$Ymd <- as.Date(paste(radio$year, radio$month, radio$day, sep = "-"))
 R1 <- radio %>% select(Ymd,year,month,f10.7)
 ```
+```{r Calc 365 Day Moving Average, echo=FALSE}
+K1 <- K1 %>% filter(Ymd >="1951-11-01")
+K1$K365 <- forecast::ma(K1$R,order=365)
+K1$KS365 <- forecast::ma(K1$Spots,order=365)
+R1$R365 <- forecast::ma(R1$f10.7, order=365)
+summary(K1$K365)
+summary(K1$KS365)
+summary(R1$R365)
+
+```
+
 ```{r Cycle 19, echo=FALSE}
 K19 <- K1 %>% filter(Ymd >="1954-04-01" & Ymd<="1958-03-31")
 R19 <- R1 %>% filter(Ymd >="1954-04-01" & Ymd<="1958-03-31")
@@ -46,7 +57,7 @@ R23 <- R1 %>% filter(Ymd >="1996-08-01" & Ymd<="2001-11-30")
 K24 <- K1 %>% filter(Ymd >="2008-12-01" & Ymd <="2014-04-30")
 R24 <- R1 %>% filter(Ymd >="2008-12-01" & Ymd <="2014-04-30")
 ```
-### Solar Cycle 19: Apr. 1954 - Mar. 1958
+# Solar Cycle 19: Apr. 1954 - Mar. 1958
 
 ```{r Plot Cycle 19, echo=FALSE}
 K19 %>% ggplot(aes(x=Ymd,y=R)) + geom_line() + geom_smooth() +
@@ -55,7 +66,8 @@ R19 %>% ggplot(aes(x=Ymd,y=f10.7)) + geom_line() + geom_smooth() +
   ggtitle(" Cycle 19 Radio Flux: f10.7CM")
 
 ```
-### Solar Cycle 20: Oct. 1964 - Nov. 1968
+
+#  Solar Cycle 20: Oct. 1964 - Nov. 1988  
 
 ```{r Plot Cycle 20, echo=FALSE}
 K20 %>% ggplot(aes(x=Ymd,y=R)) + geom_line() + geom_smooth() +
@@ -64,7 +76,8 @@ R20 %>% ggplot(aes(x=Ymd,y=f10.7)) + geom_line() + geom_smooth() +
   ggtitle(" Cycle 20 Radio Flux(f10.7CM)")
 
 ```
-### Solar Cycle 21: Mar. 1976 - Dec. 1979
+
+# Solar Cycle 21: Mar. 1976 - Dec. 1979  
 
 ```{r Plot Cycle 21, echo=FALSE}
 K21 %>% ggplot(aes(x=Ymd,y=R)) + geom_line() + geom_smooth() +
@@ -73,7 +86,8 @@ R21 %>% ggplot(aes(x=Ymd,y=f10.7)) + geom_line() + geom_smooth() +
   ggtitle(" Cycle 21 Radio Flux(f10.7CM)")
 
 ```
-### Solar Cycle 22 : Sept. 1986 - NOv. 1989
+
+# Solar Cycle 22 : Sept. 1986 - NOv. 1989
 
 ```{r Plot Cycle 22, echo=FALSE}
 K22 %>% ggplot(aes(x=Ymd,y=R)) + geom_line() + geom_smooth() +
@@ -82,7 +96,8 @@ R22 %>% ggplot(aes(x=Ymd,y=f10.7)) + geom_line() + geom_smooth() +
   ggtitle(" Cycle 22 Radio Flux(f10.7CM)")
 
 ```
-### Solar Cycle 23: Aug. 1996 - Nov. 2001
+
+# Solar Cycle 23: Aug. 1996 - Nov. 2001
 
 ```{r Plot Cycle 23, echo=FALSE}
 K23 %>% ggplot(aes(x=Ymd,y=R)) + geom_line() + geom_smooth() +
@@ -91,7 +106,8 @@ R23 %>% ggplot(aes(x=Ymd,y=f10.7)) + geom_line() + geom_smooth() +
   ggtitle(" Cycle 23 Radio Flux(f10.7CM)")
 
 ```
-### Solar Cycle 24: Dec.2008 - Apr. 2014
+
+# Solar Cycle 24: Dec.2008 - Apr. 2014
 
 ```{r Plot Cycle 24, echo=FALSE}
 K24 %>% ggplot(aes(x=Ymd,y=R)) + geom_line() + geom_smooth() +
