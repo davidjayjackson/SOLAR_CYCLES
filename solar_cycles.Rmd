@@ -1,0 +1,37 @@
+---
+title: "Solar Cycles and Radio Flux/ISN"
+author: "David J Jackson"
+date: "1/26/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+```
+ Import Kanzel ISN and Radio Flux data
+```{r import data}
+rm(list=ls())
+kanzel <- data.table::fread("./kh_spots.csv")
+kanzel$Ymd <- as.Date(kanzel$Ymd)
+kanzel$Year <- year(kanzel$Ymd)
+kanzel$Month <- month(kanzel$Ymd)
+kanzel$Spots <- kanzel$n_s + kanzel$s_s
+K1 <- kanzel %>% select(Ymd,Year,Month,R,Spots)
+radio <- data.table::fread("./radio_flux.txt")
+radio$Ymd <- as.Date(paste(radio$year, radio$month, radio$day, sep = "-"))
+R1 <- radio %>% select(Ymd,year,month,f10.7)
+```
+ Solar Cycle with go from start date to date of maxium beginning with cycle 21
+```{r Cycle 19}
+K19 <- K1 %>% filter(Ymd >="1954-04-01" & Ymd<="1958-03-31")
+R19 <- R1 %>% filter(Ymd >="1954-04-01" & Ymd<="1958-03-31")
+```
+```{r Cycle 20}
+K20 <- K1 %>% filter(Ymd >="1964-10-01" & Ymd<="1968-11-30")
+R20 <- R1 %>% filter(Ymd >="1964-10-01" & Ymd<="1968-11-30")
+```
+
+ 
+ 
