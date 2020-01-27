@@ -23,7 +23,7 @@ radio <- data.table::fread("./radio_flux.txt")
 radio$Ymd <- as.Date(paste(radio$year, radio$month, radio$day, sep = "-"))
 R1 <- radio %>% select(Ymd,year,month,f10.7)
 ```
- Solar Cycle with go from start date to date of maxium beginning with cycle 21
+ Solar Cycle which go from start date to date of maxium beginning with cycle 21
 ```{r Cycle 19}
 K19 <- K1 %>% filter(Ymd >="1954-04-01" & Ymd<="1958-03-31")
 R19 <- R1 %>% filter(Ymd >="1954-04-01" & Ymd<="1958-03-31")
@@ -32,6 +32,23 @@ R19 <- R1 %>% filter(Ymd >="1954-04-01" & Ymd<="1958-03-31")
 K20 <- K1 %>% filter(Ymd >="1964-10-01" & Ymd<="1968-11-30")
 R20 <- R1 %>% filter(Ymd >="1964-10-01" & Ymd<="1968-11-30")
 ```
+```{r Cycle 21}
+K21 <- K1 %>% filter(Ymd >="1976-03-01" & Ymd<="1979-12-31")
+R21 <- R1 %>% filter(Ymd >="1976-03-01" & Ymd<="1979-12-31")
+```
+```{r Cycle 22}
+K22 <- K1 %>% filter(Ymd >="1986-09-01" & Ymd<="1989-11-31")
+R22 <- R1 %>%filter(Ymd >="1986-09-01" & Ymd<="1989-11-31")
+```
+```{r Cucle 23}
+K23 <- K1 %>% filter(Ymd >="1996-08-01" & Ymd<="2011-11-30")
+R23 <- R1 %>% filter(Ymd >="1996-08-01" & Ymd<="2011-11-30")
+```
+```{r Cycle 24}
+K24 <- K1 %>% filter(Ymd >="2008-12-01" & Ymd <="2014-04-30")
+R24 <- R1 %>% filter(Ymd >="2008-12-01" & Ymd <="2014-04-30")
+```
+
 
  
  
