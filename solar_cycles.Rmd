@@ -27,10 +27,6 @@ K1 <- K1 %>% filter(Ymd >="1951-11-01")
 K1$K365 <- forecast::ma(K1$R,order=365)
 K1$KS365 <- forecast::ma(K1$Spots,order=365)
 R1$R365 <- forecast::ma(R1$f10.7, order=365)
-summary(K1$K365)
-summary(K1$KS365)
-summary(R1$R365)
-
 ```
 
 ```{r Cycle 19, echo=FALSE}
@@ -66,6 +62,12 @@ R19 %>% ggplot(aes(x=Ymd,y=f10.7)) + geom_line() + geom_smooth() +
   ggtitle(" Cycle 19 Radio Flux: f10.7CM")
 
 ```
+```{r Cycle 19 Moving Average,echo=FALSE}
+ggplot() + geom_line(data=K19,aes(x=Ymd,y=K365,col="ISN")) + 
+    geom_line(data=R19,aes(x=Ymd,y=R365,col="Flux")) + 
+    ggtitle("Cycle 19: ISN/Radio Flux 365 Day Moving Average") + ylab("Moving Average")
+```
+\newpage
 
 #  Solar Cycle 20: Oct. 1964 - Nov. 1988  
 
@@ -76,7 +78,12 @@ R20 %>% ggplot(aes(x=Ymd,y=f10.7)) + geom_line() + geom_smooth() +
   ggtitle(" Cycle 20 Radio Flux(f10.7CM)")
 
 ```
-
+```{r Cycle 20 Moving Average,echo=FALSE}
+ggplot() + geom_line(data=K20,aes(x=Ymd,y=K365,col="ISN")) + 
+    geom_line(data=R20,aes(x=Ymd,y=R365,col="Flux")) + 
+    ggtitle(" Cycle 20: ISN/Radio Flux 365 Day Moving Average") + ylab("Moving Average")
+```
+\newpage
 # Solar Cycle 21: Mar. 1976 - Dec. 1979  
 
 ```{r Plot Cycle 21, echo=FALSE}
@@ -86,7 +93,12 @@ R21 %>% ggplot(aes(x=Ymd,y=f10.7)) + geom_line() + geom_smooth() +
   ggtitle(" Cycle 21 Radio Flux(f10.7CM)")
 
 ```
-
+```{r Cycle 21 Movng Average,echo=FALSE}
+ggplot() + geom_line(data=K21,aes(x=Ymd,y=K365,col="ISN")) + 
+    geom_line(data=R21,aes(x=Ymd,y=R365,col="Flux")) + 
+    ggtitle("Cycle 21:ISN/Radio Flux 365 Day Moving Average") + ylab("Moving Average")
+```
+\newpage
 # Solar Cycle 22 : Sept. 1986 - NOv. 1989
 
 ```{r Plot Cycle 22, echo=FALSE}
@@ -96,7 +108,12 @@ R22 %>% ggplot(aes(x=Ymd,y=f10.7)) + geom_line() + geom_smooth() +
   ggtitle(" Cycle 22 Radio Flux(f10.7CM)")
 
 ```
-
+```{r Cycle 22 Moving Average, echo=FALSE}
+ggplot() + geom_line(data=K22,aes(x=Ymd,y=K365,col="ISN")) + 
+    geom_line(data=R22,aes(x=Ymd,y=R365,col="Flux")) + 
+    ggtitle("Cycle 22: ISN/Radio Flux 365 Day Moving Average") + ylab("Moving Average")
+```
+\newpage
 # Solar Cycle 23: Aug. 1996 - Nov. 2001
 
 ```{r Plot Cycle 23, echo=FALSE}
@@ -106,7 +123,12 @@ R23 %>% ggplot(aes(x=Ymd,y=f10.7)) + geom_line() + geom_smooth() +
   ggtitle(" Cycle 23 Radio Flux(f10.7CM)")
 
 ```
-
+```{r Cycle 23 Moving Average, echo=FALSE}
+ggplot() + geom_line(data=K23,aes(x=Ymd,y=K365,col="ISN")) + 
+    geom_line(data=R23,aes(x=Ymd,y=R365,col="Flux")) + 
+    ggtitle("Cycle 23: ISN/Radio Flux 365 Day Moving Average") + ylab("Moving Average")
+```
+\newpage
 # Solar Cycle 24: Dec.2008 - Apr. 2014
 
 ```{r Plot Cycle 24, echo=FALSE}
@@ -115,6 +137,11 @@ K24 %>% ggplot(aes(x=Ymd,y=R)) + geom_line() + geom_smooth() +
 R24 %>% ggplot(aes(x=Ymd,y=f10.7)) + geom_line() + geom_smooth() +
   ggtitle(" Cycle 24 Radio Flux(f10.7CM)")
 
+```
+```{r Cycle 24 Moving Average, echo=FALSE}
+ggplot() + geom_line(data=K24,aes(x=Ymd,y=K365,col="ISN")) + 
+    geom_line(data=R24,aes(x=Ymd,y=R365,col="Flux")) + 
+    ggtitle("Cycle 24: ISN/Radio Flux 365 Day Moving Average") + ylab("Moving Average")
 ```
 
 
