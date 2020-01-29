@@ -10,15 +10,27 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(lubridate)
 ```
+### International Sunspot Number(ISN)
+"The daily (mean) ISN data comes from ,Kanzelhöhe Observatory(http://cesar.kso.ac.at/spots/kh_spotsquery.php) University  of Graz, Aust."
+
+"The Wolf number (also known as the International sunspot number, relative sunspot number, or Zürich number) is a quantity that measures the number of sunspots and groups of sunspots present on the surface of the Sun.", https://en.wikipedia.org/wiki/Wolf_number
+
  ```{r import data, echo=FALSE}
 rm(list=ls())
-kanzel <- data.table::fread("./kh_spots.csv")
+kanzel <- data.table::fread("../db/kh_spots.csv")
 kanzel$Ymd <- as.Date(kanzel$Ymd)
 kanzel$Year <- year(kanzel$Ymd)
 kanzel$Month <- month(kanzel$Ymd)
 kanzel$Spots <- kanzel$s_n + kanzel$s_s
 K1 <- kanzel %>% select(Ymd,Year,Month,R,Spots)
-radio <- data.table::fread("./radio_flux.txt")
+
+```
+### SOLAR RADIO FLUX (F10.7cm)
+"Modelling the upper atmosphere density is essential for nowcasting and for predicting satellite orbits at low altitude (<1500 km). Density variations are primarily driven by solar activity, for which the 10.7 cm radio flux (the F10.7) is routinely used as a solar proxy. However, it has been demonstrated that the DTM-2013 (Drag Temperature Model [Bruinsma, 2015]) performs better with the 30 cm radio flux for altitudes lower than 500 km [Dudok de Wit et al., 2014]."
+
+"The Nobeyama Radio Observatory performs daily measurements of the 30 cm radio flux on an operational 7/365 basis. Additional measurements are made at 15, 8.2, 3.0, and 1.8 cm. The radio polarimeters are operated by the Nobeyama Radio Observatory (NRO), a branch of National Astronomical Observatory of Japan (NAOJ)."
+```{r Inport Solar Flux Data}
+radio <- data.table::fread("../db/radio_flux.txt")
 radio$Ymd <- as.Date(paste(radio$year, radio$month, radio$day, sep = "-"))
 R1 <- radio %>% select(Ymd,year,month,f10.7)
 ```
