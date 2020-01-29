@@ -1,5 +1,6 @@
 ---
-title: "Solar Cycles and Radio Flux/ISN"
+title: "Solar Cycles 19 - 24 (1951 - 2019)"
+subtitle: Comparing ISN to Solar Radio  Flux"
 author: "David J Jackson"
 date: "1/26/2020"
 output: pdf_document
@@ -10,7 +11,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(lubridate)
 ```
-### International Sunspot Number(ISN)
+# International Sunspot Number(ISN)
 "The daily (mean) ISN data comes from ,Kanzelhöhe Observatory(http://cesar.kso.ac.at/spots/kh_spotsquery.php) University  of Graz, Aust."
 
 "The Wolf number (also known as the International sunspot number, relative sunspot number, or Zürich number) is a quantity that measures the number of sunspots and groups of sunspots present on the surface of the Sun.", https://en.wikipedia.org/wiki/Wolf_number
@@ -25,7 +26,7 @@ kanzel$Spots <- kanzel$s_n + kanzel$s_s
 K1 <- kanzel %>% select(Ymd,Year,Month,R,Spots)
 
 ```
-### SOLAR RADIO FLUX (F10.7cm)
+# Solar Radio Flux (F10.7cm)
 "Modelling the upper atmosphere density is essential for nowcasting and for predicting satellite orbits at low altitude (<1500 km). Density variations are primarily driven by solar activity, for which the 10.7 cm radio flux (the F10.7) is routinely used as a solar proxy. However, it has been demonstrated that the DTM-2013 (Drag Temperature Model [Bruinsma, 2015]) performs better with the 30 cm radio flux for altitudes lower than 500 km [Dudok de Wit et al., 2014]."
 
 "The Nobeyama Radio Observatory performs daily measurements of the 30 cm radio flux on an operational 7/365 basis. Additional measurements are made at 15, 8.2, 3.0, and 1.8 cm. The radio polarimeters are operated by the Nobeyama Radio Observatory (NRO), a branch of National Astronomical Observatory of Japan (NAOJ)."
@@ -65,6 +66,7 @@ R23 <- R1 %>% filter(Ymd >="1996-08-01" & Ymd<="2001-11-30")
 K24 <- K1 %>% filter(Ymd >="2008-12-01" & Ymd <="2014-04-30")
 R24 <- R1 %>% filter(Ymd >="2008-12-01" & Ymd <="2014-04-30")
 ```
+\newpage
 # Solar Cycle 19: Apr. 1954 - Mar. 1958
 
 ```{r Plot Cycle 19, echo=FALSE}
@@ -95,6 +97,7 @@ ggplot() + geom_line(data=K20,aes(x=Ymd,y=K365,col="ISN")) +
     geom_line(data=R20,aes(x=Ymd,y=R365,col="Flux")) + 
     ggtitle(" Cycle 20: ISN/Radio Flux 365 Day Moving Average") + ylab("Moving Average")
 ```
+
 \newpage
 # Solar Cycle 21: Mar. 1976 - Dec. 1979  
 
@@ -110,6 +113,7 @@ ggplot() + geom_line(data=K21,aes(x=Ymd,y=K365,col="ISN")) +
     geom_line(data=R21,aes(x=Ymd,y=R365,col="Flux")) + 
     ggtitle("Cycle 21:ISN/Radio Flux 365 Day Moving Average") + ylab("Moving Average")
 ```
+
 \newpage
 # Solar Cycle 22 : Sept. 1986 - NOv. 1989
 
@@ -125,6 +129,7 @@ ggplot() + geom_line(data=K22,aes(x=Ymd,y=K365,col="ISN")) +
     geom_line(data=R22,aes(x=Ymd,y=R365,col="Flux")) + 
     ggtitle("Cycle 22: ISN/Radio Flux 365 Day Moving Average") + ylab("Moving Average")
 ```
+
 \newpage
 # Solar Cycle 23: Aug. 1996 - Nov. 2001
 
@@ -140,6 +145,7 @@ ggplot() + geom_line(data=K23,aes(x=Ymd,y=K365,col="ISN")) +
     geom_line(data=R23,aes(x=Ymd,y=R365,col="Flux")) + 
     ggtitle("Cycle 23: ISN/Radio Flux 365 Day Moving Average") + ylab("Moving Average")
 ```
+
 \newpage
 # Solar Cycle 24: Dec.2008 - Apr. 2014
 
@@ -155,7 +161,3 @@ ggplot() + geom_line(data=K24,aes(x=Ymd,y=K365,col="ISN")) +
     geom_line(data=R24,aes(x=Ymd,y=R365,col="Flux")) + 
     ggtitle("Cycle 24: ISN/Radio Flux 365 Day Moving Average") + ylab("Moving Average")
 ```
-
-
- 
- 
