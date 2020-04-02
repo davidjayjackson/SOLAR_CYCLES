@@ -1,0 +1,64 @@
+---
+title: "Comparing SIDC and AAVSO Daily sidc"
+author: "David J Jackson"
+date: "4/2/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(plotly)
+library(forecast)
+```
+```{r,echo=FALSE}
+rm(list=ls())
+sidc <- data.table::fread("../db/SN_d_tot_V2.0.csv")
+sidc$Ymd <- as.Date(paste(sidc$Year, sidc$Month,sidc$Day, sep = "-"))
+sidc <- sidc %>% filter(Ymd >="1945-01-01")
+
+aavso <- data.table::fread("../db/aavso_isn.csv")
+aavso$Ymd <- as.Date(paste(aavso$Year, aavso$Month,aavso$Day, sep = "-"))
+
+
+```
+
+### Daily ISN Data for SIDC and AAVSO by Date
+
+```{r}
+ggplot() + geom_line(data=sidc,aes(x=Ymd,y=R,col="SIDC")) + 
+  geom_line(data=aavso,aes(x=Ymd,y=Ra,col="AAVSO")) +
+  labs(title="Plot of Daily ISN")
+```
+
+### Comaring Daily ISN using 50 Day Moving Average
+
+```{r}
+sidc$SMA50 <- ma(sidc$R,order=50)
+aavso$AMA50 <- ma(aavso$Ra,order=50)
+ggplot() + geom_line(data=sidc,aes(x=Ymd,y=SMA50,col="SIDC")) + 
+  geom_line(data=aavso,aes(x=Ymd,y=AMA50,col="AAVSO")) +
+  labs(title="Comparing AAVSO/SIDC using 50 Day Moving Average")
+```
+
+### Comaring Daily ISN using 150 Day Moving Average
+
+```{r}
+sidc$SMA150 <- ma(sidc$R,order=150)
+aavso$AMA150 <- ma(aavso$Ra,order=150)
+ggplot() + geom_line(data=sidc,aes(x=Ymd,y=SMA150,col="SIDC")) + 
+  geom_line(data=aavso,aes(x=Ymd,y=AMA150,col="AAVSO")) +
+  labs(title="Comparing AAVSO/SIDC using 150 Day Moving Average",y="Moving Average")
+```
+
+
+### Plotting Matching Dates
+
+```{r}
+A <- aavso %>% select(Ymd,Ra)
+S <- sidc %>% select(Ymd,R)
+combinded <- left_join(S,A,by="Ymd")
+ggplot(combinded) + geom_line(aes(x=Ymd,y=R,col="sidc")) + 
+  geom_line(aes(x=Ymd,y=Ra,col="aavso"))
+```
+
